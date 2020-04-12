@@ -53,9 +53,13 @@ function routes(Book) {
       book.isRead = req.body.isRead;
       book.title = req.body.title;
 
-      book.save();
+      book.save((err) => {
+        if (err) {
+          return res.send(err);
+        }
 
-      return res.json(book);
+        return res.json(book);
+      });
     })
     .patch((req, res) => {
       const { book } = req;
@@ -69,9 +73,13 @@ function routes(Book) {
         book[key] = value;
       });
 
-      book.save();
+      book.save((err) => {
+        if (err) {
+          return res.send(err);
+        }
 
-      return res.json(book);
+        return res.json(book);
+      });
     });
 
   return bookRouter;
