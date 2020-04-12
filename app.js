@@ -1,3 +1,4 @@
+const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
 
@@ -36,6 +37,8 @@ bookRouter.route('/books/:bookId').get((req, res) => {
   });
 });
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use('/api', bookRouter);
 
 app.get('/', (req, res) => {
