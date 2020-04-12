@@ -9,7 +9,11 @@ const Book = require('./models/bookModel');
 mongoose.connect('mongodb://localhost/bookAPI', { useNewUrlParser: true });
 
 bookRouter.route('/books').get((req, res) => {
-  const { query } = req;
+  const query = {};
+
+  if (req.query.genre) {
+    query.genre = req.query.genre;
+  }
 
   Book.find(query, (err, books) => {
     if (err) {
