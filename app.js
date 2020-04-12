@@ -6,10 +6,12 @@ const port = process.env.PORT || 3000;
 const bookRouter = express.Router();
 const Book = require('./models/bookModel');
 
-mongoose.connect('mongodb://localhost/bookAPI');
+mongoose.connect('mongodb://localhost/bookAPI', { useNewUrlParser: true });
 
 bookRouter.route('/books').get((req, res) => {
-  Book.find((err, books) => {
+  const { query } = req;
+
+  Book.find(query, (err, books) => {
     if (err) {
       return res.send(err);
     }
