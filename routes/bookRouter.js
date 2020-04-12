@@ -56,6 +56,22 @@ function routes(Book) {
       book.save();
 
       return res.json(book);
+    })
+    .patch((req, res) => {
+      const { book } = req;
+
+      Object.entries(req.body).forEach((item) => {
+        const [key, value] = item;
+        if (key === '_id') {
+          return;
+        }
+
+        book[key] = value;
+      });
+
+      book.save();
+
+      return res.json(book);
     });
 
   return bookRouter;
