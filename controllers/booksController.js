@@ -23,10 +23,15 @@ function booksController(Book) {
       return res.send('Title is required');
     }
 
-    book.save();
+    book.save((err) => {
+      if (err) {
+        return res.send(err);
+      }
 
-    res.status(201);
-    return res.json(book);
+      res.status(201);
+
+      return res.json(book);
+    });
   }
 
   return { get, post };
